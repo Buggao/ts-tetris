@@ -1,5 +1,36 @@
-# Vue 3 + TypeScript + Vite
+# TS版本的俄罗斯方块 基于渡一教育的TS进阶课
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# 整体设计规划
+## 单一职能原则
+每个类只做与他相关的一件事
+## 开闭原则
+类只对扩展开放，对修改关闭
+## 数据-界面分离
+属性私有化，通过公开get set的方式进行暴露
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+# 方块类的设计要点
+方块类有两个重要的属性：坐标和展示
+
+坐标需要注意是抽象的逻辑坐标，与具体页面展示的无关（UI与逻辑分开）
+
+如果修改页面UI，只需要修改UI层，无需改动抽象块的逻辑。
+
+其次是对控制展示的接口的抽象，square类只依赖接口，但不依赖具体的实现，具体的实现由具体的使用者来控制。
+
+通过对selfViewer的再次抽象，来对viewer进行控制接口的实现，但是又避免了与square类的耦合。
+例如我在div中使用square类，我需要在div对应的组件内定义viewer的实现逻辑，并且也需要满足我已经定义好的selfViewer抽象接口。
+当我在canvas中使用square类时，也需要做类似的操作。
+这样做的好处是viewer视图层的逻辑与viewer解耦。
+
+# 方块类在pageview的显示逻辑
+这块内容花费了两个小时有余的时间，主要是原课程中使用jQuery进行实现，展示逻辑和selfViewer的逻辑在同一个地方。
+而在vue中 selfviewer类在一个文件中，具体的组件实现逻辑在vue文件中，且需要注意数据的同步问题：对square的操作需要改为响应式的，这里涉及vue的相关声明。
+
+这节的主要逻辑依然为对SquarePageViewer的具体实现
+
+首先使用implements按照selfViewer的约束进行实现，SquarePageViewer内部主要为了完成展示和移除两个功能，不过具体的实现是在 vue 组件内部。
+
+vue组件内部的实现逻辑是定义一个map，add时就加入到map中，删除时同理。
+
+通过compued监听map并生成对应的array，通过page-viewer config来吧逻辑坐标转化为真实坐标。
+
