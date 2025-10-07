@@ -5,7 +5,7 @@ import { Square } from './components/square';
 import { SquarePageViewer, type SquareViewerExpose } from './components/square/page-viewer';
 
 const viewerRef = ref<SquareViewerExpose | null>(null);
-const square = reactive(new Square({ x: 2, y: 3 }, 'skyBlue'));
+const square = reactive(new Square({ x: 2, y: 3 },'skyBlue'));
 
 onMounted(() => {
   square.selfViewer = new SquarePageViewer(square, viewerRef.value);
@@ -13,12 +13,10 @@ onMounted(() => {
 })
 
 function handleSquareMove() {
-  setInterval(() => {
     square.coordinate = {
       x: square.coordinate.x,
       y: square.coordinate.y+1
     }
-  }, 1000)
 }
 </script>
 
