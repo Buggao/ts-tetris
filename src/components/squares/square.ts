@@ -1,4 +1,4 @@
-import type { Coordinate, SelfViewer } from '../../types';
+import type { Coordinate, SelfViewer } from '.';
 
 export class Square {
     private _id: string
@@ -40,4 +40,3 @@ export class Square {
     }
 
 }
-

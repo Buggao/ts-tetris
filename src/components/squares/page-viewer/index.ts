@@ -1,11 +1,11 @@
 import type { Reactive } from "vue";
-import type { Square } from "..";
-import type { SelfViewer } from "../../../types";
+import type { Square } from "../square";
+import type { SelfViewer } from "..";
 import SquareViewerExpose from "./index.vue";
 
-export type ReactiveSquare = Reactive<Square>
+export type ReactiveSquare = Reactive<Square>;
 
-export type SquareViewerExpose = InstanceType<typeof SquareViewerExpose>
+export type SquareViewerExpose = InstanceType<typeof SquareViewerExpose>;
 
 export class SquarePageViewer implements SelfViewer {
   public sq: ReactiveSquare;

@@ -1,33 +1,48 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted} from 'vue';
-import SquareViewer from './components/square/page-viewer/index.vue';
-import { Square } from './components/square';
-import { SquarePageViewer, type SquareViewerExpose } from './components/square/page-viewer';
+import SquaresViewer from './components/squares/page-viewer/index.vue';
+import { SquarePageViewer, type SquareViewerExpose } from './components/squares/page-viewer';
+import { SuqareGroup } from "./components/squares/square-group"
 
 const viewerRef = ref<SquareViewerExpose | null>(null);
-const square = reactive(new Square({ x: 2, y: 3 },'skyBlue'));
+
+const longSquare = reactive(new SuqareGroup("longBar", {x: 0, y: 0}))
+
+
+const teewee = reactive(new SuqareGroup("teewee", {x: 6, y: 0}))
 
 onMounted(() => {
-  square.selfViewer = new SquarePageViewer(square, viewerRef.value);
-  square.selfViewer.show();
+  longSquare.squares.forEach(element => {
+    element.selfViewer = new SquarePageViewer(element, viewerRef.value);
+    element.selfViewer.show();
+  });
+  teewee.squares.forEach(element => {
+    element.selfViewer = new SquarePageViewer(element, viewerRef.value);
+    element.selfViewer.show();
+  });
 })
 
 function handleSquareMove() {
-    square.coordinate = {
-      x: square.coordinate.x,
-      y: square.coordinate.y+1
-    }
+  longSquare.centerPoint = {
+    x: longSquare.centerPoint.x,
+    y: longSquare.centerPoint.y + 1
+  }
+}
+
+function handleSquareMoveUp() {
+  longSquare.centerPoint = {
+    x: longSquare.centerPoint.x,
+    y: longSquare.centerPoint.y - 1
+  }
+
 }
 </script>
 
 <template>
   <main>
-    <div class="play-area">
-      <SquareViewer ref="viewerRef" />
-    </div>
+    <SquaresViewer class="play-area" ref="viewerRef" />
     <button @click="handleSquareMove">移动</button>
-    <button @click="square.selfViewer?.remove()">删除</button>
-    <button @click="square.selfViewer?.show()">展示</button> 
+    <button @click="handleSquareMoveUp">向上移动</button>
   </main>
 </template>
 
