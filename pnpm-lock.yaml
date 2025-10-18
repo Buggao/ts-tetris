@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      uuid:
+        specifier: ^13.0.0
+        version: 13.0.0
       vue:
         specifier: ^3.5.22
         version: 3.5.22(typescript@5.9.3)
@@ -425,6 +428,10 @@ packages:
   undici-types@7.13.0:
     resolution: {integrity: sha512-Ov2Rr9Sx+fRgagJ5AX0qvItZG/JKKoBRAVITs1zk7IqZGTJUwgUr7qoYBpWwakpWilTZFM98rG/AFRocu10iIQ==}
 
+  uuid@13.0.0:
+    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
+    hasBin: true
+
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
 
@@ -767,6 +774,8 @@ snapshots:
   typescript@5.9.3: {}
 
   undici-types@7.13.0: {}
+
+  uuid@13.0.0: {}
 
   vscode-uri@3.1.0: {}
 

@@ -1,26 +1,49 @@
 <script setup lang="ts">
   import { computed, reactive } from 'vue';
-  import type { ReactiveSquare } from '.';
-  import pageViewerConfig from './page-viewer-config';
+  import type { Square } from '../square';
+  import pageViewerConfig from '../square-config';
 
-  // 存储所有方块的响应式数据
-  const squareList = reactive<Map<string, ReactiveSquare>>(new Map());
+  // 组件内部维护独立的响应式视图状态，避免 UI 入侵逻辑层
+  type SquareViewState = {
+    id: string;
+    coordinate: { x: number; y: number };
+    color: string;
+  }
 
-  const squareWidth = computed(() =>  pageViewerConfig.SquareSize.width )
-  const squareHeight = computed(() =>  pageViewerConfig.SquareSize.height )
+  const squareList = reactive<Map<string, SquareViewState>>(new Map());
 
-  function addSquare(square: ReactiveSquare) {
-    squareList.set(square.id, square);
+  const squareWidth = computed(() =>  pageViewerConfig.SquareSizeByPage.width )
+  const squareHeight = computed(() =>  pageViewerConfig.SquareSizeByPage.height )
+
+  function addSquare(square: Square) {
+    const state: SquareViewState = reactive({
+      id: square.id,
+      coordinate: { x: square.coordinate.x, y: square.coordinate.y },
+      color: square.color,
+    });
+    squareList.set(square.id, state);
   }
 
   function removeSquare(id: string) {
     squareList.delete(id);
   }
 
+  function updateSquare(square: Square) {
+    const state = squareList.get(square.id);
+    if (!state) return;
+    state.coordinate.x = square.coordinate.x;
+    state.coordinate.y = square.coordinate.y;
+    state.color = square.color;
+  }
+
+  function updateAll(squares: readonly Square[]) {
+    squares.forEach(updateSquare);
+  }
+
   const squares = computed(() => Array.from(squareList.values()));
 
-  // 对外暴露方法，供 SquarePageViewer 调用
-  defineExpose({ addSquare, removeSquare })
+  // 对外暴露方法，供 SquarePageViewer / App 调用
+  defineExpose({ addSquare, removeSquare, updateSquare, updateAll })
 </script>
 
 <template>

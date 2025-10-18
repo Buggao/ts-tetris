@@ -13,8 +13,8 @@ export interface SelfViewer {
 
 // 形状只保留坐标数组；颜色单独维护
 
-// 小方块的组合类型, 以方块左上角为0，0起始位
-export const SquaresShapesDict = {
+// 四联方块的组合类型, 以方块左上角为0，0起始位, 
+export const SquaresShapesDict: Record<string, Coordinate[]> = {
   longBar: [
     { x: 0, y: 1 },
     { x: 1, y: 1 },
@@ -71,3 +71,6 @@ export const SquaresColors: string[] = [
   "purple",
   "cyan",
 ];
+
+// 方块可移动的方向
+export type MovieDirection = "left" | "right" | "down";

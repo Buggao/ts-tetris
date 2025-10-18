@@ -1,5 +1,5 @@
 import type { Coordinate, SelfViewer } from '.';
-
+import { v6 as uuidv6 } from 'uuid';
 export class Square {
     private _id: string
 
@@ -36,7 +36,7 @@ export class Square {
     constructor(coordinate: Coordinate, color: string) {
         this._coordinate = coordinate;
         this._color = color;
-        this._id = `${coordinate.x}-${coordinate.y}-${color}`;
+        this._id = uuidv6();
     }
 
 }

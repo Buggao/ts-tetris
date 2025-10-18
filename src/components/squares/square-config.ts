@@ -1,7 +1,7 @@
 export default {
   // 方块大小， 单位为px
-  SquareSize: {
-    width: 20,
-    height: 20
+  SquareSizeByPage: {
+    width: 40,
+    height: 40
   }
 }

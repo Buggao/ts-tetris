@@ -1,8 +1,8 @@
 import { SquaresShapesDict, SquaresColors,type Coordinate } from ".";
 import { Square } from "./square";
 
-type SquaresType = keyof typeof SquaresShapesDict;
-export class SuqareGroup {
+export type SquaresType = keyof typeof SquaresShapesDict;
+export class SquareGroup {
   private _squares: readonly Square[];
 
   private _type: SquaresType;
@@ -23,7 +23,7 @@ export class SuqareGroup {
 
   set centerPoint(point: Coordinate) {
     this._centerPoint = point;
-    SquaresShapesDict[this.type].forEach((item, index) => {
+    SquaresShapesDict[this.type]!.forEach((item, index) => {
       const squareLocation = {
         x: point.x + item.x,
         y: point.y + item.y,
@@ -38,7 +38,7 @@ export class SuqareGroup {
     this._type = _type;
     this._centerPoint = centerPoint;
     const squareArr: Square[] = [];
-    SquaresShapesDict[_type].forEach((item) => {
+    SquaresShapesDict[_type]!.forEach((item) => {
       const squareLocation = {
         x: centerPoint.x + item.x,
         y: centerPoint.y + item.y,
@@ -55,5 +55,5 @@ export function createTeris(centerPoint: Coordinate) {
     Math.floor(Math.random() * Object.keys(SquaresShapesDict).length)
   ] as SquaresType;
   const color = SquaresColors[Math.floor(Math.random() * SquaresColors.length)]!;
-  return new SuqareGroup(randomType, centerPoint, color);
+  return new SquareGroup(randomType, centerPoint, color);
 }
