@@ -1,76 +1,84 @@
-export interface Coordinate {
-  x: number;
-  y: number;
+import { SquareGroup } from "./square-group";
+import { type Coordinate, SquaresShapesDict, SquaresColors } from "./primitives";
+
+
+export class LongBar extends SquareGroup {
+  constructor(centerPoint: Coordinate, color: string) {
+    super("longBar", SquaresShapesDict.longBar as Coordinate[], centerPoint, color);
+  }
+  public rotate() {
+    super.rotate();
+    this.isCounter = !this.isCounter;
+  } 
 }
 
-// 小方块的显示类
-export interface SelfViewer {
-  // 显示
-  show(): void;
-  // 移除
-  remove(): void;
+export class Teewee extends SquareGroup {
+  constructor(centerPoint: Coordinate, color: string) {
+    super("teewee", SquaresShapesDict.teewee as Coordinate[], centerPoint, color);
+  }
+  public rotate() {
+    return false
+  }
 }
 
-// 形状只保留坐标数组；颜色单独维护
+export class Block extends SquareGroup {
+  constructor(centerPoint: Coordinate, color: string) {
+    super("block", SquaresShapesDict.block as Coordinate[], centerPoint, color);
+  }
+  public rotate() {
+    super.rotate();
+  }
+}
 
-// 四联方块的组合类型, 以方块左上角为0，0起始位, 
-export const SquaresShapesDict: Record<string, Coordinate[]> = {
-  longBar: [
-    { x: 0, y: 1 },
-    { x: 1, y: 1 },
-    { x: 2, y: 1 },
-    { x: 3, y: 1 },
-  ],
-  teewee: [
-    { x: 1, y: 0 },
-    { x: 0, y: 1 },
-    { x: 1, y: 1 },
-    { x: 2, y: 1 },
-  ],
-  block: [
-    { x: 0, y: 0 },
-    { x: 0, y: 1 },
-    { x: 1, y: 0 },
-    { x: 1, y: 1 },
-  ],
-  leftGun: [
-    { x: 0, y: 0 },
-    { x: 0, y: 1 },
-    { x: 1, y: 1 },
-    { x: 2, y: 1 },
-  ],
-  rightGun: [
-    { x: 0, y: 1 },
-    { x: 1, y: 1 },
-    { x: 2, y: 1 },
-    { x: 2, y: 0 },
-  ],
-  rightSnake: [
-    { x: 0, y: 1 },
-    { x: 1, y: 1 },
-    { x: 1, y: 0 },
-    { x: 2, y: 0 },
-  ],
-  leftSnake: [
-    { x: 0, y: 0 },
-    { x: 0, y: 1 },
-    { x: 1, y: 1 },
-    { x: 2, y: 1 },
-  ],
-} satisfies Record<string, Coordinate[]>;
+export class LeftGun extends SquareGroup {
+  constructor(centerPoint: Coordinate, color: string) {
+    super("leftGun", SquaresShapesDict.leftGun as Coordinate[], centerPoint, color);
+  }
+}
 
-export type SquaresType = keyof typeof SquaresShapesDict;
+export class RightGun extends SquareGroup {
+  constructor(centerPoint: Coordinate, color: string) {
+    super("rightGun", SquaresShapesDict.rightGun as Coordinate[], centerPoint, color);
+  }
+}
 
-// 颜色作为数组导出，若需要键值映射也提供一个安全的 Map
-export const SquaresColors: string[] = [
-  "red",
-  "green",
-  "blue",
-  "orange",
-  "yellow",
-  "purple",
-  "cyan",
-];
+export class RightSnake extends SquareGroup {
+  constructor(centerPoint: Coordinate, color: string) {
+    super("rightSnake", SquaresShapesDict.rightSnake as Coordinate[], centerPoint, color);
+  }
+  public rotate() {
+    super.rotate();
+    this.isCounter = !this.isCounter;
+  }
+}
 
-// 方块可移动的方向
-export type MovieDirection = "left" | "right" | "down";
+export class LeftSnake extends SquareGroup {
+  constructor(centerPoint: Coordinate, color: string) {
+    super("leftSnake", SquaresShapesDict.leftSnake as Coordinate[], centerPoint, color);
+  }
+  public rotate() {
+    super.rotate();
+    this.isCounter = !this.isCounter;
+  }
+}
+
+export const shapes = [
+  LongBar,
+  Teewee,
+  Block,
+  LeftGun,
+  RightGun,
+  RightSnake,
+  LeftSnake,
+]
+
+// 透出基础类型与字典，方便外部使用
+export * from "./primitives";
+
+export function createTeris(centerPoint: Coordinate) {
+  const RandomShapeClass = shapes[
+    Math.floor(Math.random() * shapes.length)
+  ] as new (centerPoint: Coordinate, color: string) => SquareGroup;
+  const color = SquaresColors[Math.floor(Math.random() * SquaresColors.length)]!;
+  return new RandomShapeClass(centerPoint, color);
+}

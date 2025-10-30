@@ -1,13 +1,16 @@
-import { SquaresShapesDict, SquaresColors,type Coordinate } from ".";
+import type { SquaresType, Coordinate } from "./primitives";
 import { Square } from "./square";
-
-export type SquaresType = keyof typeof SquaresShapesDict;
 export class SquareGroup {
   private _squares: readonly Square[];
 
   private _type: SquaresType;
 
   private _centerPoint: Coordinate;
+
+  // 当前形状的相对偏移（相对于中心点），用于旋转持久化（形状坐标）
+  private _relativeOffsets: Coordinate[];
+
+  protected isCounter: boolean = false;
 
   get squares() {
     return this._squares;
@@ -23,7 +26,8 @@ export class SquareGroup {
 
   set centerPoint(point: Coordinate) {
     this._centerPoint = point;
-    SquaresShapesDict[this.type]!.forEach((item, index) => {
+    // 使用当前相对偏移来计算每个小方块的绝对坐标
+    this._relativeOffsets.forEach((item, index) => {
       const squareLocation = {
         x: point.x + item.x,
         y: point.y + item.y,
@@ -34,11 +38,15 @@ export class SquareGroup {
     });
   }
 
-  constructor(_type: SquaresType, centerPoint: Coordinate, color: string) {
-    this._type = _type;
+  constructor(type: SquaresType, offsets: Coordinate[], centerPoint: Coordinate, color: string) {
+    this._type = type;
     this._centerPoint = centerPoint;
+    // 初始化形状坐标
+    this._relativeOffsets = offsets.map(({ x, y }) => ({ x, y }));
+
     const squareArr: Square[] = [];
-    SquaresShapesDict[_type]!.forEach((item) => {
+    // // 基于初始相对偏移生成小方块
+    this._relativeOffsets.forEach((item) => {
       const squareLocation = {
         x: centerPoint.x + item.x,
         y: centerPoint.y + item.y,
@@ -48,12 +56,16 @@ export class SquareGroup {
     });
     this._squares = squareArr;
   }
-}
 
-export function createTeris(centerPoint: Coordinate) {
-  const randomType = Object.keys(SquaresShapesDict)[
-    Math.floor(Math.random() * Object.keys(SquaresShapesDict).length)
-  ] as SquaresType;
-  const color = SquaresColors[Math.floor(Math.random() * SquaresColors.length)]!;
-  return new SquareGroup(randomType, centerPoint, color);
+  public rotate() {
+    // 计算旋转后的相对偏移：顺时针 (x, y) => (y, -x)，逆时针 (x, y) => (-y, x)
+    const rotatedOffsets = this._relativeOffsets.map(({ x, y }) => (
+      this.isCounter ? { x: -y, y: x } : { x: y, y: -x }
+    ));
+
+    // 更新当前相对偏移
+    this._relativeOffsets = rotatedOffsets;
+    // 复用 setter，根据中心点重新计算绝对坐标
+    this.centerPoint = this.centerPoint;
+  }
 }

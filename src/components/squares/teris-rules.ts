@@ -1,5 +1,5 @@
-import { type SquaresType, SquareGroup } from "./square-group"
-import { type Coordinate, SquaresShapesDict, type MovieDirection } from "."
+import { SquareGroup } from "./square-group"
+import { type SquaresType, type Coordinate, SquaresShapesDict, type MovieDirection } from "."
 import GameConfig from "@/game-config"
 
 export class TerisRules {
@@ -12,7 +12,6 @@ export class TerisRules {
         y: element.y + targetPoint.y
       }
     });
-    debugger
     return !targatCoordinate.some(item => (
       item.x < 0||
       item.y < 0 ||
