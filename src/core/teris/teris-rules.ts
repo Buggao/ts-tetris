@@ -1,5 +1,5 @@
 import {type Coordinate} from "."
-import GameConfig from "@/game-config"
+import GameConfig from "@/core/game/game-config"
 
 export class TerisRules {
   // 判断能否进行移动，包含两个参数 方块形状shape和 目标地址 targetPoint

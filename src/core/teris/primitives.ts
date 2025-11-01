@@ -1,13 +1,4 @@
-export interface Coordinate {
-  x: number;
-  y: number;
-}
-
-// 小方块的显示类（供视图实现）
-export interface SelfViewer {
-  show(): void;
-  remove(): void;
-}
+import type { Coordinate } from "../types/teris.types";
 
 // 四联方块的组合类型，相对中心点的偏移坐标
 export const SquaresShapesDict: Record<string, Coordinate[]> = {
@@ -60,19 +51,3 @@ export const SquaresShapesDict: Record<string, Coordinate[]> = {
     { x: -1, y: -1 },
   ],
 } satisfies Record<string, Coordinate[]>;
-
-export type SquaresType = keyof typeof SquaresShapesDict;
-
-// 颜色数组
-export const SquaresColors: string[] = [
-  "red",
-  "green",
-  "blue",
-  "orange",
-  "yellow",
-  "purple",
-  "cyan",
-];
-
-// 方块可移动的方向
-export type MovieDirection = "left" | "right" | "down";

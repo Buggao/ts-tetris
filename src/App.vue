@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted} from 'vue';
-import SquaresViewer from './components/squares/page-viewer/index.vue';
-import { SquarePageViewer, type SquareViewerExpose } from './components/squares/page-viewer';
-import { createTeris } from "../src/components/squares/index"
-import { type MovieDirection } from "./components/squares"
+import SquaresViewer from './components/squares/teris/index.vue';
+import { SquarePageViewer, type SquareViewerExpose } from './components/squares/teris';
+import { createTeris } from "@/core/teris/index"
+import { type MovieDirection } from "@/core/types/teris.types"
 
 const viewerRef = ref<SquareViewerExpose | null>(null);
 let teris = createTeris({x: 3, y: 1});
