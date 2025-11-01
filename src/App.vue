@@ -3,7 +3,6 @@ import { ref, onMounted} from 'vue';
 import SquaresViewer from './components/squares/page-viewer/index.vue';
 import { SquarePageViewer, type SquareViewerExpose } from './components/squares/page-viewer';
 import { createTeris } from "../src/components/squares/index"
-import { TerisRules } from "./components/squares/teris-rules"
 import { type MovieDirection } from "./components/squares"
 
 const viewerRef = ref<SquareViewerExpose | null>(null);
@@ -29,7 +28,7 @@ function handleChangeSquareType() {
 }
 
 function handleSquareMove(direction: MovieDirection) {
-  const moved = TerisRules.move(teris, direction)
+  const moved = teris.move(direction)
   if (moved) {
     // 逻辑层坐标已更新，同步到 UI
     viewerRef.value?.updateAll(teris.squares)

@@ -1,20 +1,23 @@
 import { SquareGroup } from "./square-group";
-import { type Coordinate, SquaresShapesDict, SquaresColors } from "./primitives";
+import { type Coordinate, SquaresColors } from "./primitives";
 
 
 export class LongBar extends SquareGroup {
   constructor(centerPoint: Coordinate, color: string) {
-    super("longBar", SquaresShapesDict.longBar as Coordinate[], centerPoint, color);
+    super("longBar", centerPoint, color);
   }
-  public rotate() {
-    super.rotate();
-    this.isCounter = !this.isCounter;
-  } 
+  public rotate(): boolean {
+    const result = super.rotate();
+    if (result) {
+      this.isCounter = !this.isCounter;
+    }
+    return result;
+  }
 }
 
 export class Teewee extends SquareGroup {
   constructor(centerPoint: Coordinate, color: string) {
-    super("teewee", SquaresShapesDict.teewee as Coordinate[], centerPoint, color);
+    super("teewee", centerPoint, color);
   }
   public rotate() {
     return false
@@ -23,42 +26,52 @@ export class Teewee extends SquareGroup {
 
 export class Block extends SquareGroup {
   constructor(centerPoint: Coordinate, color: string) {
-    super("block", SquaresShapesDict.block as Coordinate[], centerPoint, color);
+    super("block", centerPoint, color);
   }
-  public rotate() {
-    super.rotate();
+  public rotate(): boolean {
+    const result = super.rotate();
+    if (result) {
+      this.isCounter = !this.isCounter;
+    }
+    return result;
   }
 }
 
 export class LeftGun extends SquareGroup {
   constructor(centerPoint: Coordinate, color: string) {
-    super("leftGun", SquaresShapesDict.leftGun as Coordinate[], centerPoint, color);
+    super("leftGun", centerPoint, color);
   }
 }
 
 export class RightGun extends SquareGroup {
   constructor(centerPoint: Coordinate, color: string) {
-    super("rightGun", SquaresShapesDict.rightGun as Coordinate[], centerPoint, color);
+    super("rightGun", centerPoint, color);
   }
 }
 
 export class RightSnake extends SquareGroup {
   constructor(centerPoint: Coordinate, color: string) {
-    super("rightSnake", SquaresShapesDict.rightSnake as Coordinate[], centerPoint, color);
+    super("rightSnake", centerPoint, color);
   }
-  public rotate() {
-    super.rotate();
-    this.isCounter = !this.isCounter;
+  public rotate(): boolean {
+    const result = super.rotate();
+    if (result) {
+      this.isCounter = !this.isCounter;
+    }
+    return result;
   }
 }
 
 export class LeftSnake extends SquareGroup {
   constructor(centerPoint: Coordinate, color: string) {
-    super("leftSnake", SquaresShapesDict.leftSnake as Coordinate[], centerPoint, color);
+    super("leftSnake", centerPoint, color);
   }
-  public rotate() {
-    super.rotate();
-    this.isCounter = !this.isCounter;
+  public rotate(): boolean {
+    const result = super.rotate();
+    if (result) {
+      this.isCounter = !this.isCounter;
+    }
+    return result;
   }
 }
 
