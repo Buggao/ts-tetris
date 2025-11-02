@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { computed, reactive } from 'vue';
-  import type { Square } from '@/core/teris/square';
-  import pageViewerConfig from '@/core/teris/square-config';
+  import type { Square } from '@/core/tetris/square';
+  import pageViewerConfig from '@/core/tetris/square-config';
 
   // 组件内部维护独立的响应式视图状态，避免 UI 入侵逻辑层
   type SquareViewState = {

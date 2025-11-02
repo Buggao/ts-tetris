@@ -1,7 +1,7 @@
-import type { SquaresType, Coordinate, MovieDirection} from "../types/teris.types";
-import { SquaresShapesDict } from "../teris/primitives";
+import type { SquaresType, Coordinate, MovieDirection} from "../types/tetris.types";
+import { SquaresShapesDict } from "./primitives";
 import { Square } from "./square";
-import { TerisRules } from "./teris-rules";
+import { TerisRules } from "./tetris-rules";
 export class SquareGroup {
   private _squares: readonly Square[];
 

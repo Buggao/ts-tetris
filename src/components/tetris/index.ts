@@ -1,5 +1,5 @@
-import type { Square } from "@/core/teris/square";
-import type { SelfViewer } from "@/core/types/teris.types";
+import type { Square } from "@/core/tetris/square";
+import type { SelfViewer } from "@/core/types/tetris.types";
 import SquareViewerExpose from "./index.vue";
 
 export type SquareViewerExpose = InstanceType<typeof SquareViewerExpose>;

@@ -1,4 +1,4 @@
-import type { Coordinate } from "../types/teris.types";
+import type { Coordinate } from "../types/tetris.types";
 
 // 四联方块的组合类型，相对中心点的偏移坐标
 export const SquaresShapesDict: Record<string, Coordinate[]> = {

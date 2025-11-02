@@ -1,4 +1,4 @@
-import { SquaresShapesDict } from "../teris/primitives";
+import { SquaresShapesDict } from "../tetris/primitives";
 
 export interface Coordinate {
     x: number;

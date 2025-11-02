@@ -1,5 +1,5 @@
 import { SquareGroup } from "./square-group";
-import { type Coordinate, SquaresColors } from "../types/teris.types";
+import { type Coordinate, SquaresColors } from "../types/tetris.types";
 
 
 export class LongBar extends SquareGroup {
@@ -86,7 +86,7 @@ export const shapes = [
 ]
 
 // 透出基础类型与字典，方便外部使用
-export * from "../types/teris.types";
+export * from "../types/tetris.types";
 
 export function createTeris(centerPoint: Coordinate) {
   const RandomShapeClass = shapes[
